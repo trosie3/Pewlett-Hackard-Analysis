@@ -34,11 +34,21 @@ GROUP BY title
 ORDER BY count DESC;
 
 -- Deliverable 2: The Employees Eligible for the Mentorship Program
-SELECT DISTINCT ON (______) _____,
-______,
-______,
-______
-
-INTO nameyourtable
-FROM _______
-ORDER BY _____, _____ DESC;
+-- create a mentorship-eligibility table that holds the current employees who were born between January 1, 1965 and December 31, 1965.
+-- mentorship elig, run twice: second run uncomment INTO
+SELECT DISTINCT ON (e.emp_no) e.emp_no,
+    e.first_name,
+    e.last_name,
+    e.birth_date,
+    de.from_date,
+    de.to_date,
+    t.title
+--INTO mentorship_eligibilty
+FROM employees AS e
+LEFT JOIN dept_employees AS de
+ON e.emp_no=de.emp_no
+LEFT JOIN titles AS t
+ON e.emp_no=t.emp_no
+WHERE (e.birth_date BETWEEN '1965-01-01' AND '1965-12-31')
+AND (de.to_date = '9999-01-01')
+ORDER BY e.emp_no;
